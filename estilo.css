@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.logo {
+    background: #01083e1f;
+    border: 1px solid #1903900d;
+    border-radius: .4em;
+    bottom: 0;
+    box-shadow: 0 5px 10px 5px rgb(0 0 0 / 28%);
+    height: 78%;
+    left: 0;
+    margin: auto;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 60%;
+}
+
+.col-12.propaganda {
+    min-height: 65%;
+    max-height: 65%;
+    padding: 14px;
+}
+
+.col-12.propaganda img {
+    height: 100%;
+    width: 100%;
+}
+
+.logo h1 {
+    text-align: center;
+    font-size: 143px;
+    font-weight: bold;
+    margin: 1px 0;
+    color: black;
+}
+
+.logo h4 {
+    text-align: center;
+    font-size: 21px;
+    margin-top: 0;
+}
+
+.topnav p {
+    float: right;
+    color: white;
+    margin-right: 1%;
+    margin-top: 1%;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(13deg, #2e33c2 14%, #1c2a99 64%);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(13deg, #c7ceff 14%, #ffffff 64%);
+}
+
+::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: inset 7px 10px 12px #f0f0f0;
+}
+
+.btn-danger:hover {
+    color: #fff;
+    background-color: #004695;
+    border-color: #004695;
+}
+
+.modal-header h1 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.col-12.mascara {
+    background: #e0e1e8;
+}
+
+div#masc {
+    margin: 15px 0 0 0px;
+    background: #e0e1e8;
+}
+
+div#masc img {
+    padding: 0;
+    width: 100%;
+}
+
+.content {
+    padding: 4%;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.logo.listaInscritos {
+    padding: 3% 0;
+}
+
+.counter {
+    text-align: center;
+    font-size: 100px;
+}
