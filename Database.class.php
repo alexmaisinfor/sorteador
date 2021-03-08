@@ -61,5 +61,4 @@ class Database
         $this->conexao = null;
     }
 }
-
 ?>

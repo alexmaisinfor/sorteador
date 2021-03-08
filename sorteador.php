@@ -16,21 +16,21 @@ function consultaInscritosPorSexo($conn, $sex)
 
         switch ($sex) {
             case 1:
-                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
+                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.num_insc, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
                 FROM sort_inscritos
                 WHERE (((sort_inscritos.sexo)='$sex'))
                 ORDER BY RAND()
                 LIMIT 1");
                 break;
             case 2:
-                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
+                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.num_insc, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
                 FROM sort_inscritos
                 WHERE (((sort_inscritos.sexo)='$sex'))
                 ORDER BY RAND()
                 LIMIT 1");
                 break;
             default:
-                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
+                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.num_insc, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
                 FROM sort_inscritos
                 ORDER BY RAND()
                 LIMIT 1");
@@ -71,17 +71,17 @@ function contaInscritos($conn, $sex)
 
         switch ($sex) {
             case '1':
-                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
+                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.num_insc, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
                 FROM sort_inscritos
                 WHERE (((sort_inscritos.sexo)='$sex'))");
                 break;
             case '2':
-                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
+                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.num_insc, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
                 FROM sort_inscritos
                 WHERE (((sort_inscritos.sexo)='$sex'))");
                 break;
             default:
-                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
+                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.num_insc, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
                 FROM sort_inscritos");
                 break;
         }
@@ -164,8 +164,8 @@ $quantidadeInscritos = contaInscritos($conn, $sex);
 <body>
 
     <div class="topnav">
-        <a href="sorteador.php?sex=0">Todos</a>
-        <a href="sorteador.php?sex=2">Feminino</a>
+        <a href="sorteador.php?sex=0">Sortear Todos</a>
+        <a href="sorteador.php?sex=2">Sortear Feminino</a>
         <!-- <a href="sorteador.php?sex=1">Masculino</a> -->
         <a class="active" onClick="window.location.reload();">Sortear</a>
 
@@ -204,7 +204,7 @@ $quantidadeInscritos = contaInscritos($conn, $sex);
                             }
                         }
 
-                        $numerodasorte = str_pad($associado['id'], 5, '0', STR_PAD_LEFT);// COMPLETO COM ZEROS A ESQUERDA PARA 5 CASAS DECIMAIS
+                        $numerodasorte = str_pad($associado['num_insc'], 5, '0', STR_PAD_LEFT);// COMPLETO COM ZEROS A ESQUERDA PARA 5 CASAS DECIMAIS
 
                         echo "
                             <h1 id='masc'>
