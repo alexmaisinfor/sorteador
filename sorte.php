@@ -1,7 +1,6 @@
 <?php
 require_once("Database.class.php");
 
-
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -44,9 +43,11 @@ function contaInscritos($conn, $sex)
 
 function listaSorteados($conn)
 {
-    try {
-
-        $data = $conn->prepare("SELECT *  FROM sort_inscritos WHERE (((sort_inscritos.status)=1))");
+    try {        
+        $data = $conn->prepare("SELECT sort_inscritos.num_insc, sort_inscritos.nome, sort_inscritos.cidade, sort_inscritos.uf, sort_inscritos.time, sort_inscritos.status
+FROM sort_inscritos
+WHERE (((sort_inscritos.status)=1))
+ORDER BY sort_inscritos.time DESC");
 
         $data->execute();
         $linhas = $data->rowCount();
@@ -55,7 +56,8 @@ function listaSorteados($conn)
 
             for ($i = 1; $i <= $linhas; $i++) {
                 $result = $data->fetch(PDO::FETCH_ASSOC);
-                echo '<p>' . $i . ' - ' . $result['nome'] . ' | <strong>' . $result['cidade'] . ' (' . $result['uf'] . ') </strong></p>';
+                $numerodasorte = str_pad($result['num_insc'], 5, '0', STR_PAD_LEFT);// COMPLETO COM ZEROS A ESQUERDA PARA 5 CASAS DECIMAIS
+                echo '<p>N. Sorteado: <strong>'. $numerodasorte . '</strong> - ' . $result['nome'] . ' | <strong>' . $result['cidade'] . ' (' . $result['uf'] . ') </strong></p>';
             }
         }
     } catch (PDOException $e) {
@@ -76,6 +78,7 @@ $quantidadeInscritosF = contaInscritos($conn, 2);
 <head>
     <title></title>
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="20" > 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -90,8 +93,8 @@ $quantidadeInscritosF = contaInscritos($conn, 2);
 
     <div class="topnav">
         <p>Toltal de inscritos: <?php echo $quantidadeInscritos ?></p>
-        <p>Toltal Masculino: <?php echo $quantidadeInscritosF ?></p>
-        <p>Toltal Feminino: <?php echo $quantidadeInscritosM ?></p>
+        <p>Toltal Feminino: <?php echo $quantidadeInscritosF ?></p>
+        <p>Toltal Masculino: <?php echo $quantidadeInscritosM ?></p>
     </div>
 
     <div class=" container">

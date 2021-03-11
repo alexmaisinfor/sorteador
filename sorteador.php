@@ -16,21 +16,21 @@ function consultaInscritosPorSexo($conn, $sex)
 
         switch ($sex) {
             case 1:
-                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
+                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.num_insc , sort_inscritos.cpf, sort_inscritos.sexo
                 FROM sort_inscritos
                 WHERE (((sort_inscritos.sexo)='$sex'))
                 ORDER BY RAND()
                 LIMIT 1");
                 break;
             case 2:
-                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
+                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.num_insc , sort_inscritos.cpf, sort_inscritos.sexo
                 FROM sort_inscritos
                 WHERE (((sort_inscritos.sexo)='$sex'))
                 ORDER BY RAND()
                 LIMIT 1");
                 break;
             default:
-                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
+                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.num_insc , sort_inscritos.cpf, sort_inscritos.sexo
                 FROM sort_inscritos
                 ORDER BY RAND()
                 LIMIT 1");
@@ -45,15 +45,18 @@ function consultaInscritosPorSexo($conn, $sex)
 
         if ($linhas = 1) {
 
+            $today = date("Y-m-d H:i:s"); 
             try {
-                $stmt = $conn->prepare('UPDATE sort_inscritos SET  sort_inscritos.status = :s WHERE sort_inscritos.id = :id');
+                $stmt = $conn->prepare('UPDATE sort_inscritos SET sort_inscritos.status = :s, sort_inscritos.time = :t WHERE sort_inscritos.id = :id');
                 $stmt->bindValue(':id', $result[0][0]);
                 $stmt->bindValue(':s', 1);
+                $stmt->bindValue(':t', $today);
                 $stmt->execute();
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }
             $conn = null;
+
         }
 
         $consultaAssociado[] = $linhas;
@@ -71,17 +74,17 @@ function contaInscritos($conn, $sex)
 
         switch ($sex) {
             case '1':
-                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
+                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.num_insc , sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
                 FROM sort_inscritos
                 WHERE (((sort_inscritos.sexo)='$sex'))");
                 break;
             case '2':
-                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
+                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.num_insc , sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
                 FROM sort_inscritos
                 WHERE (((sort_inscritos.sexo)='$sex'))");
                 break;
             default:
-                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
+                $data = $conn->prepare("SELECT sort_inscritos.id, sort_inscritos.num_insc , sort_inscritos.nome, sort_inscritos.cpf, sort_inscritos.sexo
                 FROM sort_inscritos");
                 break;
         }
@@ -204,7 +207,7 @@ $quantidadeInscritos = contaInscritos($conn, $sex);
                             }
                         }
 
-                        $numerodasorte = str_pad($associado['id'], 5, '0', STR_PAD_LEFT);// COMPLETO COM ZEROS A ESQUERDA PARA 5 CASAS DECIMAIS
+                        $numerodasorte = str_pad($associado['num_insc'], 5, '0', STR_PAD_LEFT);// COMPLETO COM ZEROS A ESQUERDA PARA 5 CASAS DECIMAIS
 
                         echo "
                             <h1 id='masc'>
@@ -220,11 +223,6 @@ $quantidadeInscritos = contaInscritos($conn, $sex);
                 </div>
 
             </div>
-
-
-            <!-- The Modal -->
-            <?php $sorteados = listaSorteados($conn); ?>
-
 
             <script>
                 setTimeout(function() {
