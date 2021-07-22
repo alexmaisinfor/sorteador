@@ -28,19 +28,23 @@ body {
 }
 
 .logo {
-    background: #01083e1f;
-    border: 1px solid #1903900d;
-    border-radius: .4em;
+    background-image: url("img/Card_dia_da_mulher_ site _.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
     bottom: 0;
-    box-shadow: 0 5px 10px 5px rgb(0 0 0 / 28%);
-    height: 78%;
+    width: 95%;
+    height: 95%;
     left: 0;
+    right: 0;
+    border: 0px solid #1903900d;
     margin: auto;
     overflow: hidden;
-    position: absolute;
-    right: 0;
     top: 0;
-    width: 60%;
+}
+
+.col-12.numeroSorte {
+    background: #eed8eb;
 }
 
 .col-12.propaganda {
@@ -121,16 +125,21 @@ div#masc img {
 }
 
 .content {
-    padding: 4%;
-    max-height: 100%;
+    padding: 0.5% 2%;
+    /* max-height: 89%; */
     overflow: auto;
 }
 
 .logo.listaInscritos {
-    padding: 3% 0;
+    /* padding: 3% 0; */
+    background: #00000005;
 }
 
 .counter {
     text-align: center;
     font-size: 100px;
+}
+
+nav.navbar.navbar-expand-lg.navbar-light {
+    margin-bottom: 30.5%;
 }

@@ -45,7 +45,7 @@ function consultaInscritosPorSexo($conn, $sex)
 
         if ($linhas = 1) {
 
-            $today = date("Y-m-d H:i:s"); 
+            $today = date("Y-m-d H:i:s");
             try {
                 $stmt = $conn->prepare('UPDATE sort_inscritos SET sort_inscritos.status = :s, sort_inscritos.time = :t WHERE sort_inscritos.id = :id');
                 $stmt->bindValue(':id', $result[0][0]);
@@ -56,7 +56,6 @@ function consultaInscritosPorSexo($conn, $sex)
                 echo "Error: " . $e->getMessage();
             }
             $conn = null;
-
         }
 
         $consultaAssociado[] = $linhas;
@@ -164,78 +163,86 @@ $quantidadeInscritos = contaInscritos($conn, $sex);
     <link rel="stylesheet" type="text/css" href="estilo.css" />
 </head>
 
-<body>
 
-    <div class="topnav">
-        <a href="sorteador.php?sex=0">Todos</a>
-        <a href="sorteador.php?sex=2">Feminino</a>
-        <!-- <a href="sorteador.php?sex=1">Masculino</a> -->
-        <a class="active" onClick="window.location.reload();">Sortear</a>
 
-        <p>Toltal de inscritos <?php echo $quantidadeInscritos ?></p>
+<body onload="start()">
 
-        <p>
-            <!-- Button to Open the Modal -->
-            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Sorteados
-            </button> -->
-        </p>
+    <div class=" container-fluid">
+
+
+
+
+        <!-- <div class="max-width">
+
+        </div> -->
+        <script src="cont.js"></script>
+
+
+        <div class="logo">
+
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="sorteador.php?sex=0">Todos <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="sorteador.php?sex=1">Masculino</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="sorteador.php?sex=2" aria-disabled="true">Feminino</a>
+                        </li>
+                    </ul>
+                    <span class="navbar-text">
+                        Toltal de inscritos <?php echo $quantidadeInscritos ?>
+                    </span>
+                </div>
+            </nav>
+
+            <div class="col-12 numeroSorte">
+
+                <?php
+                if ($_GET) {
+
+                    $insc = consultaInscritosPorSexo($conn, $sex);
+
+                    if ($insc[0] > 0) {
+                        foreach ($insc[1] as $associado) {
+                            $nome = $associado['nome'];
+                        }
+                    }
+
+                    $numerodasorte = str_pad($associado['num_insc'], 5, '0', STR_PAD_LEFT); // COMPLETO COM ZEROS A ESQUERDA PARA 5 CASAS DECIMAIS
+
+                    echo "
+                        <h1 id='masc'>
+                            <span id='counter1'>*</span>
+                            <span id='counter2'>*</span>
+                            <span id='counter3'>*</span>
+                            <span id='counter4'>*</span>
+                        </h1>
+                        <h1 id='numsorte' style='display: none'><span>$numerodasorte</span></h1>";
+                }
+                ?>
+
+            </div>
+
+            
+        </div>
 
     </div>
 
-    <div class=" container">
+    <script>
+        setTimeout(function() {
+            $('#masc').fadeOut('fast');
+        }, 5000);
 
-        <body onload="start()">
-            <div class="max-width">
-
-            </div>
-            <script src="cont.js"></script>
-
-
-            <div class="logo">
-
-                <div class="col-12 propaganda"><img src="img\Card_dia_da_mulher_ site _.png"></div>
-                <div class="col-12 numeroSorte">
-                    <?php
-                    if ($_GET) {
-
-                        $insc = consultaInscritosPorSexo($conn, $sex);
-
-                        if ($insc[0] > 0) {
-                            foreach ($insc[1] as $associado) {
-                                $nome = $associado['nome'];
-                            }
-                        }
-
-                        $numerodasorte = str_pad($associado['num_insc'], 5, '0', STR_PAD_LEFT);// COMPLETO COM ZEROS A ESQUERDA PARA 5 CASAS DECIMAIS
-
-                        echo "
-                            <h1 id='masc'>
-                                <span id='counter1'>*</span>
-                                <span id='counter2'>*</span>
-                                <span id='counter3'>*</span>
-                                <span id='counter4'>*</span>
-                            </h1>
-                            <h1 id='numsorte' style='display: none'><span>$numerodasorte</span></h1>";
-                    } 
-                    ?>
-
-                </div>
-
-            </div>
-
-            <script>
-                setTimeout(function() {
-                    $('#masc').fadeOut('fast');
-                }, 5000);
-
-                setTimeout(function() {
-                    $('#numsorte').fadeIn('fast');
-                }, 6000);               
-
-            </script>
+        setTimeout(function() {
+            $('#numsorte').fadeIn('fast');
+        }, 6000);
+    </script>
 
 
-        </body>
+</body>
 
 </html>
