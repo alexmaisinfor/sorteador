@@ -28,9 +28,9 @@ body {
 }
 
 .logo {
-    background-image: url("img/Card_dia_da_mulher_ site _.png");
+    background-image: url("img/fundo.png");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     position: absolute;
     bottom: 0;
     width: 95%;
@@ -44,7 +44,7 @@ body {
 }
 
 .col-12.numeroSorte {
-    background: #eed8eb;
+    /* background: #ffffff; */
 }
 
 .col-12.propaganda {

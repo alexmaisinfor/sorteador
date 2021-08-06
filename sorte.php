@@ -8,6 +8,7 @@ if (!isset($_SESSION)) {
 $conn = Database::conexao(); // Pega a instância da conexao com o banco de dados.
 
 $sex = (isset($_GET['sex'])) ? $_GET['sex'] : '#';
+$z = (isset($_GET['id'])) ? $_GET['id'] : null;
 
 function contaInscritos($conn, $sex)
 {
@@ -60,6 +61,20 @@ function contaSorteados($conn)
     }
 }
 
+function reiniciaVoto($conn){
+    try {
+        $stmt = $conn->prepare('UPDATE sort_inscritos SET sort_inscritos.status = :s');
+        $stmt->bindValue(':s', 0);
+        $stmt->execute();
+
+        echo ("<script>alert('Base de dados reiniciada.');location.href='sorte.php';</script>");
+        exit;
+
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn = null;
+}
 
 function listaSorteados($conn)
 {
@@ -106,6 +121,13 @@ $quantidadeInscritosF = contaInscritos($conn, 2);
 $quantidadeSorteados = contaSorteados($conn);
 
 
+// echo $z;
+
+if($z == 1){
+    reiniciaVoto($conn);
+   }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -114,7 +136,7 @@ $quantidadeSorteados = contaSorteados($conn);
 <head>
     <title></title>
     <meta charset="UTF-8">
-    <!-- <meta http-equiv="refresh" content="20"> -->
+    <meta http-equiv="refresh" content="15">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -138,6 +160,9 @@ $quantidadeSorteados = contaSorteados($conn);
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
+                            <a class="nav-link" href="sorte.php?id=1">Reiniciar</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#">Feminino: <?php echo $quantidadeInscritosF ?></a>
                         </li>
                         <li class="nav-item">
@@ -145,12 +170,12 @@ $quantidadeSorteados = contaSorteados($conn);
                         </li>
                     </ul>
                     <span class="navbar-text">
-                        Toltal de inscritos <?php echo $quantidadeInscritos ?>
+                        Total de inscritos <?php echo $quantidadeInscritos ?>
                     </span>
                 </div>
             </nav>
 
-            <h4>Lista de Soreados (<?php  echo $quantidadeSorteados ?>)</h4>
+            <h4>Lista de Sorteados (<?php  echo $quantidadeSorteados ?>)</h4>
             <div class="content">
                 <table id="minhaTabela" class="table table-striped  table-hover">
                     <thead class="table-primary">

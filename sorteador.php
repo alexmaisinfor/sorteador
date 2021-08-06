@@ -42,7 +42,6 @@ function consultaInscritosPorSexo($conn, $sex)
         //echo "<hr>Total de associados credenciados a votar: " . $linhas . "<br>";
         $result = $data->fetchAll();
 
-
         if ($linhas = 1) {
 
             $today = date("Y-m-d H:i:s");
@@ -52,6 +51,9 @@ function consultaInscritosPorSexo($conn, $sex)
                 $stmt->bindValue(':s', 1);
                 $stmt->bindValue(':t', $today);
                 $stmt->execute();
+
+                header( "refresh:20; url=sorteador.php" );
+
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }
@@ -169,12 +171,7 @@ $quantidadeInscritos = contaInscritos($conn, $sex);
 
     <div class=" container-fluid">
 
-
-
-
-        <!-- <div class="max-width">
-
-        </div> -->
+        <!-- <div class="max-width"> </div> -->
         <script src="cont.js"></script>
 
 
@@ -194,11 +191,12 @@ $quantidadeInscritos = contaInscritos($conn, $sex);
                         </li>
                     </ul>
                     <span class="navbar-text">
-                        Toltal de inscritos <?php echo $quantidadeInscritos ?>
+                        Total de inscritos <?php echo $quantidadeInscritos ?>
                     </span>
                 </div>
             </nav>
-
+            
+            <a class="nav-link" href="sorteador.php" style="z-index: 50;position: absolute;right: 0;bottom: 0;font-size: xx-small;">Home</a>
             <div class="col-12 numeroSorte">
 
                 <?php
