@@ -120,13 +120,7 @@ $quantidadeInscritosM = contaInscritos($conn, 1);
 $quantidadeInscritosF = contaInscritos($conn, 2);
 $quantidadeSorteados = contaSorteados($conn);
 
-
-// echo $z;
-
-if($z == 1){
-    reiniciaVoto($conn);
-   }
-
+if($z == 1){reiniciaVoto($conn);}
 
 ?>
 
@@ -146,9 +140,8 @@ if($z == 1){
 
 
     <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
-
-
     <link rel="stylesheet" type="text/css" href="estilo.css" />
+
 </head>
 
 <body>
@@ -196,7 +189,6 @@ if($z == 1){
         </div>
 
     </div>
-
 
     <!-- <script src="//code.jquery.com/jquery-3.2.1.min.js"></script> -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
